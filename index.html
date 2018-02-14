@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Easter Egg</title>
+
+    <!-- Boostrap Stylesheet -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css"  media="screen"/>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <header>
+    <h1 class="ARCADE HEADER"> Ready Player One</h1>
+	</header>
+	<div class="PRESS">
+    <h3 class="ARCADE" > Press Start to Begin</h3>
+	</div>
+
+</head>
+<br><br><br>
+
+  <body background= assets/image/ObedientEmptyGazelle-size_restricted.gif>
+
+  	<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> START </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Arcade </a>
+    <a class="dropdown-item" href="#">Characters</a>
+    <a class="dropdown-item" href="#">Text-Based</a>
+  </div>
+</div>
+		
+	<div class="container">
+  <h1 class="display-4 ARCADE"">Vintage Games </h1>
+  <hr>
+						 	<img id="MIRROR" src="assets/image/original.gif" alt="Mega man">
+						  <p class="lead"></p>
+						  <hr class="my-4">
+						  <p class="ARCADE">The Beauty of Vintage Gaming...<span class="blinking-cursor">|</span></p>
+						  <p class="lead">
+						  </p>
+						  <div>
+								<h1>HangMan</h1>
+
+								<p>[Don't Choke]</p>
+								<form id="hangman">
+								    <input type="text" maxlength="1" minlength="1" name="letter" id="letter" placeholder="Guess a letter" />
+								    <input id="guess" name="guess" type="submit" value="Guess" />
+								    <button id="restart" name="restart" type="button">Restart</button>
+								</form>
+								<ul id="letters"></ul>
+								<p id="man"></p>
+								<p id="output" class="output"></p>
+						</div>
+</div>
+<script>
+										(function () {
+									    "use strict";
+									    var availableLetters, words, guessInput, guess, guessButton, lettersGuessed, lettersMatched, output, man, letters, lives, currentWord, numLettersMatched, messages;
+
+									    function setup() {
+									    
+									        availableLetters = "abcdefghijklmnopqrstuvwxyz";
+									        lives = 5;
+									        words = ["cow", "dog", "cow", "reindeer"];
+									        messages = {
+									            win: 'You win!',
+									            lose: 'Game over!',
+									            guessed: ' already guessed, please try again...',
+									            validLetter: 'Please enter a letter from A-Z'
+									        };
+									      
+
+									        lettersGuessed = lettersMatched = '';
+									        numLettersMatched = 0;
+
+									 
+									        currentWord = words[Math.floor(Math.random() * words.length)];
+
+									       
+									        output = document.getElementById("output");
+									        man = document.getElementById("man");
+									        guessInput = document.getElementById("letter");
+
+									        man.innerHTML = 'You have ' + lives + ' lives remaining';
+									        output.innerHTML = '';
+
+									        document.getElementById("letter").value = '';
+
+									        
+									        guessButton = document.getElementById("guess");
+									        guessInput.style.display = 'inline';
+									        guessButton.style.display = 'inline';
+
+									        
+									        letters = document.getElementById("letters");
+									        letters.innerHTML = '<li class="current-word">Current word:</li>';
+
+									        var letter, i;
+									        for (i = 0; i < currentWord.length; i++) {
+									            letter = '<li class="letter letter' + currentWord.charAt(i).toUpperCase() + '">' + currentWord.charAt(i).toUpperCase() + '</li>';
+									            letters.insertAdjacentHTML('beforeend', letter);
+									        }
+									    }
+
+									    function gameOver(win) {
+									        if (win) {
+									            output.innerHTML = messages.win;
+									            output.classList.add('win');
+									        } else {
+									            output.innerHTML = messages.lose;
+									            output.classList.add('error');
+									        }
+
+									        guessInput.style.display = guessButton.style.display = 'none';
+									        guessInput.value = '';
+									    }
+
+									   
+									    window.onload = setup();
+
+									  
+									    document.getElementById("restart").onclick = setup;
+
+									  
+									    guessInput.onclick = function () {
+									        this.value = '';
+									    };
+
+									  
+									    document.getElementById('hangman').onsubmit = function (e) {
+									        if (e.preventDefault) e.preventDefault();
+									        output.innerHTML = '';
+									        output.classList.remove('error', 'warning');
+									        guess = guessInput.value;
+
+									        
+									        if (guess) {
+									            
+									            if (availableLetters.indexOf(guess) > -1) {
+									               
+									                if ((lettersMatched && lettersMatched.indexOf(guess) > -1) || (lettersGuessed && lettersGuessed.indexOf(guess) > -1)) {
+									                    output.innerHTML = '"' + guess.toUpperCase() + '"' + messages.guessed;
+									                    output.classList.add("warning");
+									                }
+									               
+									                else if (currentWord.indexOf(guess) > -1) {
+									                    var lettersToShow;
+									                    lettersToShow = document.querySelectorAll(".letter" + guess.toUpperCase());
+
+									                    for (var i = 0; i < lettersToShow.length; i++) {
+									                        lettersToShow[i].classList.add("correct");
+									                    }
+
+									                    
+									                    for (var j = 0; j < currentWord.length; j++) {
+									                        if (currentWord.charAt(j) === guess) {
+									                            numLettersMatched += 1;
+									                        }
+									                    }
+
+									                    lettersMatched += guess;
+									                    if (numLettersMatched === currentWord.length) {
+									                        gameOver(true);
+									                    }
+									                }
+									               
+									                else {
+									                    lettersGuessed += guess;
+									                    lives--;
+									                    man.innerHTML = 'You have ' + lives + ' lives remaining';
+									                    if (lives === 0) gameOver();
+									                }
+									            }
+									            
+									            else {
+									                output.classList.add('error');
+									                output.innerHTML = messages.validLetter;
+									            }
+									        }
+									       
+									        else {
+									            output.classList.add('error');
+									            output.innerHTML = messages.validLetter;
+									        }
+									        return false;
+									    };
+									}());
+			</script>
+
+
+  </body>
+  <br>
+  <footer>
+  	
+  </footer>
+  </html>

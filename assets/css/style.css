@@ -1,0 +1,133 @@
+body{
+	background-size: 100%;
+}
+.container{
+
+	background-color:white;
+
+	float:center;
+	width:600px;
+	opacity:.8;
+}
+.PRESS{
+	margin-left:100px;
+	float: left;
+}
+
+.dropdown{
+	float: left;
+	margin-left:100px;
+	width:200px;
+	line
+
+}
+.HEADER{
+	margin-left: 25px;
+}
+
+.ARCADE{
+	font-family: 'Press Start 2P', cursive;
+	color: red;
+}
+.blinking-cursor {
+  font-weight: 100;
+  font-size: 30px;
+  color: #2E3D48;
+  -webkit-animation: 1s blink step-end infinite;
+  -moz-animation: 1s blink step-end infinite;
+  -ms-animation: 1s blink step-end infinite;
+  -o-animation: 1s blink step-end infinite;
+  animation: 1s blink step-end infinite;
+}
+
+@keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-moz-keyframes blink {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-webkit-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-ms-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-o-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+#MIRROR{
+	width:550px;
+	height:300px;
+	opacity:1;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: sans-serif;
+}
+
+ .letter {
+    display: inline-block;
+    list-style: none;
+    width: 20px;
+    margin: 0 5px;
+    border-bottom: 1px solid black;
+    text-align: center;
+    color: white;
+}
+.current-word {
+    list-style: none;
+}
+.output {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+.correct {
+    background-color: green;
+    transition: all 1s ease;
+}
+.error {
+    color: red;
+    opacity: 1;
+}
+.warning {
+    color: orange;
+    opacity: 1;
+}
+.win {
+    color: green;
+    opacity: 1;
+}
